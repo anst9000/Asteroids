@@ -10,12 +10,14 @@ import com.neet.managers.GameInputProcessor;
 //import com.neet.managers.GameStateManager;
 //import com.neet.managers.Jukebox;
 import com.neet.managers.GameKeys;
+import com.neet.managers.GameStateManager;
 
 public class Game implements ApplicationListener
 {
 	public static int WIDTH;
 	public static int HEIGHT;
 	public static OrthographicCamera cam;
+	private GameStateManager gsm;
 
 	@Override
 	public void create()
@@ -28,6 +30,7 @@ public class Game implements ApplicationListener
 		cam.update();
 
 		Gdx.input.setInputProcessor( new GameInputProcessor() );
+		gsm = new GameStateManager();
 	}
 
 	@Override
@@ -36,6 +39,9 @@ public class Game implements ApplicationListener
 		// clear screen to black
 		Gdx.gl.glClearColor( 0, 0, 0, 1 );
 		Gdx.gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
+
+		gsm.update( Gdx.graphics.getDeltaTime() );
+		gsm.draw();
 
 		GameKeys.update();
 	}

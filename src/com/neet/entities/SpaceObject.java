@@ -65,6 +65,7 @@ public class SpaceObject {
 
 		for ( int i = 0, j = shapex.length - 1; i < shapex.length; j = i++ )
 		{
+
 			if ( ( shapey[i] > y ) != ( shapey[j] > y )
 					&& ( x < ( shapex[j] - shapex[i] ) * ( y - shapey[i] ) / ( shapey[j] - shapey[i] ) + shapex[i] ) )
 			{

@@ -31,6 +31,7 @@ public class Player extends SpaceObject {
 	
 	private float hitTimer;
 	private float hitTime;
+
 	private Line2D.Float[] hitLines;
 	private Point2D.Float[] hitLinesVector;
 	
@@ -38,10 +39,9 @@ public class Player extends SpaceObject {
 	private int extraLives;
 	private long requiredScore;
 	
-//	public Player( ArrayList<Bullet> bullets )
-	public Player()
+	public Player( ArrayList<Bullet> bullets )
 	{
-//		this.bullets = bullets;
+		this.bullets = bullets;
 		
 		x = Game.WIDTH / 2;
 		y = Game.HEIGHT / 2;
@@ -65,10 +65,10 @@ public class Player extends SpaceObject {
 		score = 0;
 		extraLives = 3;
 		requiredScore = 10000;
-		
 	}
 	
-	private void setShape() {
+	private void setShape()
+	{
 		shapex[0] = x + MathUtils.cos(radians) * 8;
 		shapey[0] = y + MathUtils.sin(radians) * 8;
 		
@@ -146,9 +146,9 @@ public class Player extends SpaceObject {
 		extraLives--;
 	}
 	
-	public void incrementScore( long l )
+	public void incrementScore( long scoreIncrement )
 	{
-		score += l;
+		score += scoreIncrement;
 	}
 	
 	public void shoot()
@@ -158,12 +158,13 @@ public class Player extends SpaceObject {
 		{
 			return;
 		}
+
 		bullets.add(new Bullet(x, y, radians));
 //		Jukebox.play("shoot");
 	}
 	
-	public void hit() {
-		
+	public void hit()
+	{
 		if ( hit )
 		{
 			return;
@@ -204,12 +205,12 @@ public class Player extends SpaceObject {
 		);
 	}
 	
-	public void update( float dt )
+	public void update( float deltaTime )
 	{
 		// check if hit
 		if ( hit )
 		{
-			hitTimer += dt;
+			hitTimer += deltaTime;
 
 			if ( hitTimer > hitTime )
 			{
@@ -220,10 +221,10 @@ public class Player extends SpaceObject {
 			for ( int i = 0; i < hitLines.length; i++ )
 			{
 				hitLines[i].setLine(
-					hitLines[i].x1 + hitLinesVector[i].x * 10 * dt,
-					hitLines[i].y1 + hitLinesVector[i].y * 10 * dt,
-					hitLines[i].x2 + hitLinesVector[i].x * 10 * dt,
-					hitLines[i].y2 + hitLinesVector[i].y * 10 * dt
+						hitLines[i].x1 + hitLinesVector[i].x * 10 * deltaTime,
+						hitLines[i].y1 + hitLinesVector[i].y * 10 * deltaTime,
+						hitLines[i].x2 + hitLinesVector[i].x * 10 * deltaTime,
+						hitLines[i].y2 + hitLinesVector[i].y * 10 * deltaTime
 				);
 			}
 
@@ -241,19 +242,19 @@ public class Player extends SpaceObject {
 		// turning
 		if ( left )
 		{
-			radians += rotationSpeed * dt;
+			radians += rotationSpeed * deltaTime;
 		}
 		else if ( right )
 		{
-			radians -= rotationSpeed * dt;
+			radians -= rotationSpeed * deltaTime;
 		}
 		
 		// accelerating
 		if ( up )
 		{
-			dx += MathUtils.cos(radians) * acceleration * dt;
-			dy += MathUtils.sin(radians) * acceleration * dt;
-			acceleratingTimer += dt;
+			dx += MathUtils.cos( radians ) * acceleration * deltaTime;
+			dy += MathUtils.sin( radians ) * acceleration * deltaTime;
+			acceleratingTimer += deltaTime;
 
 			if ( acceleratingTimer > 0.1f )
 			{
@@ -270,8 +271,8 @@ public class Player extends SpaceObject {
 
 		if ( vec > 0 )
 		{
-			dx -= (dx / vec) * deceleration * dt;
-			dy -= (dy / vec) * deceleration * dt;
+			dx -= ( dx / vec ) * deceleration * deltaTime;
+			dy -= ( dy / vec ) * deceleration * deltaTime;
 		}
 
 		if ( vec > maxSpeed )
@@ -281,8 +282,8 @@ public class Player extends SpaceObject {
 		}
 		
 		// set position
-		x += dx * dt;
-		y += dy * dt;
+		x += dx * deltaTime;
+		y += dy * deltaTime;
 		
 		// set shape
 		setShape();
@@ -297,22 +298,21 @@ public class Player extends SpaceObject {
 		wrap();
 	}
 	
-	public void draw( ShapeRenderer sr )
+	public void draw( ShapeRenderer shapeRenderer )
 	{
-		sr.setColor(1, 1, 1, 1);
+		shapeRenderer.setColor( 1, 1, 1, 1 );
 		
-		sr.begin(ShapeType.Line);
+		shapeRenderer.begin( ShapeType.Line );
 		
 		// check if hit
 		if ( hit )
 		{
-
 			for ( int i = 0; i < hitLines.length; i++ )
 			{
-				sr.line( hitLines[i].x1, hitLines[i].y1, hitLines[i].x2, hitLines[i].y2 );
+				shapeRenderer.line( hitLines[i].x1, hitLines[i].y1, hitLines[i].x2, hitLines[i].y2 );
 			}
 
-			sr.end();
+			shapeRenderer.end();
 
 			return;
 		}
@@ -320,7 +320,7 @@ public class Player extends SpaceObject {
 		// draw ship
 		for ( int i = 0, j = shapex.length - 1; i < shapex.length; j = i++ )
 		{
-			sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
+			shapeRenderer.line( shapex[i], shapey[i], shapex[j], shapey[j] );
 		}
 		
 		// draw flames
@@ -328,10 +328,10 @@ public class Player extends SpaceObject {
 		{
 			for ( int i = 0, j = flamex.length - 1; i < flamex.length; j = i++ )
 			{
-				sr.line(flamex[i], flamey[i], flamex[j], flamey[j]);
+				shapeRenderer.line( flamex[i], flamey[i], flamex[j], flamey[j] );
 			}
 		}
 		
-		sr.end();
+		shapeRenderer.end();
 	}
 }

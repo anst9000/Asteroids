@@ -4,55 +4,50 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 
-public class Bullet extends SpaceObject {
+public class Particle extends SpaceObject {
 	
-	private float lifeTime;
-	private float lifeTimer;
-	
+	private float timer;
+	private float time;
 	private boolean remove;
 	
-	public Bullet(float x, float y, float radians) {
-		
+	public Particle( float x, float y )
+	{
 		this.x = x;
 		this.y = y;
-		this.radians = radians;
+		width = height = 2;
 		
-		float speed = 350;
+		speed = 50;
+		radians = MathUtils.random( 2 * MathUtils.PI );
 		dx = MathUtils.cos(radians) * speed;
 		dy = MathUtils.sin(radians) * speed;
 		
-		width = height = 2;
-		
-		lifeTimer = 0;
-		lifeTime = 1;
+		timer = 0;
+		time = 1;
 	}
 	
 	public boolean shouldRemove() { return remove; }
 	
-	public void update(float dt) {
+	public void update( float deltaTime )
+	{
+		x += dx * deltaTime;
+		y += dy * deltaTime;
 		
-		x += dx * dt;
-		y += dy * dt;
-		
-		wrap();
-		
-		lifeTimer += dt;
-		if(lifeTimer > lifeTime) {
+		timer += deltaTime;
+
+		if ( timer > time )
+		{
 			remove = true;
 		}
-		
 	}
 	
 	public void draw( ShapeRenderer shapeRenderer )
 	{
 		shapeRenderer.setColor( 1, 1, 1, 1 );
 		shapeRenderer.begin( ShapeType.Circle );
-		shapeRenderer.circle( x - width / 2, y - height / 2, width / 2 );
+		shapeRenderer.circle( x - width / 2, y - width / 2, width / 2 );
 		shapeRenderer.end();
 	}
-	
 }
-
 
 
 

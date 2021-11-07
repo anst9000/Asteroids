@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.neet.main.Game;
+import com.neet.managers.Jukebox;
 
 public class Player extends SpaceObject {
 	
@@ -102,15 +103,19 @@ public class Player extends SpaceObject {
 	public void setRight( boolean b )
 	{ right = b; }
 
-	public void setUp( boolean b )
+	public void setUp( boolean state )
 	{
-//		if(b && !up && !hit) {
-//			Jukebox.loop("thruster");
-//		}
-//		else if(!b) {
-//			Jukebox.stop("thruster");
-//		}
-		up = b;
+
+		if ( state && !up && !hit )
+		{
+			Jukebox.loop( "thruster" );
+		}
+		else if ( !state )
+		{
+			Jukebox.stop( "thruster" );
+		}
+
+		up = state;
 	}
 	
 	@Override
@@ -160,7 +165,7 @@ public class Player extends SpaceObject {
 		}
 
 		bullets.add(new Bullet(x, y, radians));
-//		Jukebox.play("shoot");
+		Jukebox.play( "shoot" );
 	}
 	
 	public void hit()
@@ -173,7 +178,7 @@ public class Player extends SpaceObject {
 		hit = true;
 		dx = dy = 0;
 		left = right = up = false;
-//		Jukebox.stop("thruster");
+		Jukebox.stop( "thruster" );
 		
 		hitLines = new Line2D.Float[4];
 
@@ -236,7 +241,7 @@ public class Player extends SpaceObject {
 		{
 			extraLives++;
 			requiredScore += 10000;
-//			Jukebox.play("extralife");
+			Jukebox.play( "extralife" );
 		}
 		
 		// turning

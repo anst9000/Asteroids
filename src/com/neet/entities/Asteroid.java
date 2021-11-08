@@ -1,5 +1,6 @@
 package com.neet.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
@@ -95,7 +96,7 @@ public class Asteroid extends SpaceObject
 	
 	public void draw( ShapeRenderer shapeRenderer )
 	{
-		shapeRenderer.setColor( 1, 1, 1, 1 );
+		shapeRenderer.setColor( Color.WHITE );
 		shapeRenderer.begin( ShapeType.Line );
 
 		for ( int i = 0, j = shapex.length - 1; i < shapex.length; j = i++ )

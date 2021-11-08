@@ -4,13 +4,15 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.neet.main.Game;
 import com.neet.managers.Jukebox;
 
-public class Player extends SpaceObject {
+public class Player extends SpaceObject
+{
 	
 	private final int MAX_BULLETS = 4;
 	private ArrayList<Bullet> bullets;
@@ -305,7 +307,7 @@ public class Player extends SpaceObject {
 	
 	public void draw( ShapeRenderer shapeRenderer )
 	{
-		shapeRenderer.setColor( 1, 1, 1, 1 );
+		shapeRenderer.setColor( Color.WHITE );
 		
 		shapeRenderer.begin( ShapeType.Line );
 		

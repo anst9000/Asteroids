@@ -37,9 +37,10 @@ public class Jukebox
 	
 	public static void stopAll()
 	{
-		for ( Sound s : sounds.values() )
+
+		for ( Sound sound : sounds.values() )
 		{
-			s.stop();
+			sound.stop();
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package com.neet.managers;
 
+import com.neet.gamestates.GameOverState;
 import com.neet.gamestates.GameState;
 import com.neet.gamestates.HighScoreState;
 import com.neet.gamestates.MenuState;
@@ -41,6 +42,10 @@ public class GameStateManager
 			case HIGHSCORE:
 				// Switch to play state
 				gameState = new HighScoreState( this );
+				break;
+			case GAMEOVER:
+				// Switch to Gameover state
+				gameState = new GameOverState( this );
 				break;
 		}
 	}

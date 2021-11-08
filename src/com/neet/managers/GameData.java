@@ -33,7 +33,7 @@ public class GameData implements Serializable
 	public String[] getNames() { return names; }
 	
 	public long getTentativeScore() { return tentativeScore; }
-	public void setTentaiveScore(long i) { tentativeScore = i; }
+	public void setTentativeScore(long i) { tentativeScore = i; }
 	
 	public boolean isHighScore( long score )
 	{

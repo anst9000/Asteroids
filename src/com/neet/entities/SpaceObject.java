@@ -2,8 +2,8 @@ package com.neet.entities;
 
 import com.neet.main.Game;
 
-public class SpaceObject {
-	
+public class SpaceObject
+{
 	protected float x;
 	protected float y;
 	

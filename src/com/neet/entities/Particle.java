@@ -1,11 +1,12 @@
 package com.neet.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 
-public class Particle extends SpaceObject {
-	
+public class Particle extends SpaceObject
+{
 	private float timer;
 	private float time;
 	private boolean remove;
@@ -42,7 +43,7 @@ public class Particle extends SpaceObject {
 	
 	public void draw( ShapeRenderer shapeRenderer )
 	{
-		shapeRenderer.setColor( 1, 1, 1, 1 );
+		shapeRenderer.setColor( Color.WHITE );
 		shapeRenderer.begin( ShapeType.Circle );
 		shapeRenderer.circle( x - width / 2, y - width / 2, width / 2 );
 		shapeRenderer.end();
